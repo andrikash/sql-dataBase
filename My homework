@@ -1,0 +1,74 @@
+CREATE DATABASE users
+  DEFAULT CHARACTER SET utf8;
+
+ USE users;
+
+CREATE TABLE person(
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name VARCHAR(200) NOT NULL DEFAULT 'NAME',
+  surname VARCHAR(200)NOT NULL DEFAULT 'SURNAME',
+  age INT(3) DEFAULT '100',
+  nickname VARCHAR(200)NOT NULL DEFAULT 'NICKUSHKA',
+  balance INT(10)NOT NULL DEFAULT '0'
+);
+INSERT INTO person(name,surname,age,nickname,balance)
+    VALUES
+      ('Andrew','Dis',20,'azazashka',2300),
+      ('Dima','Figa',34,'topProgerMathafaka',15000),
+      ('Nastya','Tyasko',20,'FlowerySpring',12000),
+      ('Stephan','Gul',20,'Pisok',500),
+      ('Gala','Galala',15,'Galka',20000),
+      ('Nina','Ololo',50,'Ulitka',320),
+      ('Ninas','Ololoshkin',55,'Sibka',45000),
+      ('Valya','TupTup',19,'Whose',30000);
+CREATE TABLE goods(
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  name VARCHAR(200) NOT NULL DEFAULT 'NAME',
+  price INT(5) NOT NULL DEFAULT 0
+);
+
+INSERT INTO goods(name,price)
+    VALUES
+      ('Laptop',200),
+      ('Notebook',450),
+      ('Mivina',51),
+      ('Suchari',5),
+      ('Mouse',150);
+
+CREATE TABLE ref_person_goods(
+  person_id int NOT NULL ,
+  goods_id int NOT NULL,
+  FOREIGN KEY (person_id)
+    REFERENCES person(id)
+);
+
+ALTER TABLE ref_person_goods
+    ADD CONSTRAINT xxx
+  FOREIGN KEY (goods_id)
+  REFERENCES goods(id);
+
+INSERT INTO ref_person_goods(person_id,goods_id)
+    VALUES
+      (1,3),
+      (1,2),
+      (2,3),
+      (2,4),
+      (2,1),
+      (3,1),
+      (4,5);
+  SELECT person.name,goods.name FROM person
+JOIN ref_person_goods ON person.id = ref_person_goods.person_id
+JOIN goods ON goods.id = ref_person_goods.goods_id
+WHERE person.age > 2;
+
+
+
+
+
+SELECT * FROM person;
+SELECT * FROM person
+WHERE id > 5;
+SELECT * FROM person
+WHERE id > 5 AND age >20;
+SELECT * FROM person
+WHERE balance > 1000;
